@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "670914394007",
+    "firebase_url": "https://mynit-d90b5.firebaseio.com",
+    "project_id": "mynit-d90b5",
+    "storage_bucket": "mynit-d90b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670914394007:android:44af8c2953f3865d3fb6d2",
+        "android_client_info": {
+          "package_name": "com.vaibhavcodes.mynitfinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670914394007-hooj8qukopb82e4fie23l5tkjsopbuol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdRMYaio8jeN21UJlhk_-vdQLtkMPvUxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670914394007-hooj8qukopb82e4fie23l5tkjsopbuol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
