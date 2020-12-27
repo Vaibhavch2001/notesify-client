@@ -21,10 +21,10 @@ class _SelectSem234State extends State<SelectSem234> {
             primary: false,
             slivers: <Widget>[
               SliverPadding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(30),
                 sliver: SliverGrid.count(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 30,
+                  mainAxisSpacing: 30,
                   crossAxisCount: 2,
                   children: <Widget>[
                     Card(

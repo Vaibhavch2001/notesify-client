@@ -48,7 +48,7 @@ class _SubjectSelectorState extends State<SubjectSelector> {
                               child: InkWell(
                                 onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>TypeSelector(subjectId:snapshot.data[i].id,sem: widget.sem,branch: widget.branch,subjectName: snapshot.data[i].name,))) ;},
                                 child: Container(
-                                  height: 70.0,
+                                  height: 50.0,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -56,12 +56,12 @@ class _SubjectSelectorState extends State<SubjectSelector> {
 //                                      Spacer(flex: 1,),
                                       Text(
                                         snapshot.data[i].name,
-                                        style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),
+                                        style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),
                                       ),
 
 
                                       Spacer(flex: 5,)
-                                      ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                                      ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
 //                                      Spacer(flex: 1,),
                                       SizedBox(width: 20.0,),
                                     ],

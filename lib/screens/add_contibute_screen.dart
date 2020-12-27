@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:mynitfinal/utils/api_client.dart';
-//import 'package:open_file/open_file.dart';
+import 'package:open_file/open_file.dart';
 
 class FullScreenDialog extends StatefulWidget {
   FullScreenDialog({this.type,this.subjectName,this.branch,this.sem,this.subjectId});
@@ -31,8 +31,6 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
   bool progressHud = false;
   TextEditingController inpController = TextEditingController();
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -43,6 +41,14 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
           children: [
 
             ModalProgressHUD(
+              progressIndicator: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Uploading..."),
+                  SizedBox(height: 10,),
+                  CircularProgressIndicator(),
+                ],
+              ),
               inAsyncCall:progressHud,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,12 +126,11 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
                         Text('Document:',style: myStyle,),
                         Spacer(flex: 1,),
                         GestureDetector (onTap: fileName==null?null:()async{
-                          print("Happening");
-//                           OpenFile.open(file.path);
-                        },child: Text(fileName==null?"No document picked yet":fileName.length>28?fileName.substring(0,25)+"...":fileName,style: myStyle,)),
+                           OpenFile.open(file.path);
+                        },child: Text(fileName==null?"No document picked yet":fileName.length>23?fileName.substring(0,20)+"...":fileName,style: myStyle,)),
                         Spacer(flex: 1,),
                         fileName!=null?Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
+                          padding: const EdgeInsets.only(right: 5.0),
                           child: Tooltip(
                             message: "Deselect the file",
                             child: IconButton(icon: Icon(Icons.delete_outline,color: Colors.red,) , onPressed: (){
@@ -141,8 +146,11 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
                     child: Padding(padding: EdgeInsets.all(10.0),
                       child: RaisedButton(
                         color: Colors.deepPurpleAccent,
-                          child: Text("    Submit Document    "),
-                          onPressed: (fileName!=null && docName!=null && docName.length>5)?()async{
+                          child: Padding(
+                            padding: const EdgeInsets.all(13.0),
+                            child: Text("    Submit Document    ",style: TextStyle(fontSize: 20.0),),
+                          ),
+                          onPressed: (fileName!=null && docName!=null && docName.length>1)?()async{
                             await addDocument();
                           }:null
                       ),),
@@ -150,9 +158,14 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
                 ],
               ),
             ),
-            successPause?SizedBox.shrink():FlareActor("animations/success.flr",animation: "open and close",fit: BoxFit.contain),
+            successPause?SizedBox.shrink():Column(
+              children: [
+                Expanded(child: FlareActor("animations/success.flr",animation: "open and close",fit: BoxFit.contain)),
+                Text("The document will start showing up soon.",style: TextStyle(color: Colors.green,fontWeight: FontWeight.w500,fontSize: 20.0),textAlign:TextAlign.center,),
+                SizedBox(height: 100.0,)
+              ],
+            ),
             errorPause?SizedBox.shrink():FlareActor("animations/error.flr",animation: "error",fit: BoxFit.contain),
-
           ],
         ));
   }
@@ -201,7 +214,7 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
           progressHud = false;
           successPause = false;
         });
-        Future.delayed(Duration(seconds: 5) ,(){setState(() {
+        Future.delayed(Duration(seconds: 4,milliseconds: 500) ,(){setState(() {
           successPause = true;
         });});
         //implement error display

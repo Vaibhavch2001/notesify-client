@@ -38,17 +38,16 @@ class _TypeSelectorState extends State<TypeSelector> {
                 child: InkWell(
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>SlideSelector(branch: widget.branch,sem: widget.sem,SubjectId: widget.subjectId,subjectName: widget.subjectName,)) );},
                   child: Container(
-                    height: 70.0,
+                    height: 50.0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 20.0,),
                         Text(
                           'Slides',
-                          style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),
-                        ),
+                          style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),                        ),
                         Spacer(flex: 5,)
-                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
                         SizedBox(width: 20.0,),
                       ],
                     ),
@@ -65,17 +64,16 @@ class _TypeSelectorState extends State<TypeSelector> {
                 child: InkWell(
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>NoteSelector(branch: widget.branch,sem: widget.sem,SubjectId: widget.subjectId,subjectName: widget.subjectName,)) );},
                   child: Container(
-                    height: 70.0,
+                    height: 50.0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 20.0,),
                         Text(
                           'Notes',
-                          style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),
-                        ),
+                          style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),                        ),
                         Spacer(flex: 5,)
-                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
                         SizedBox(width: 20.0,),
                       ],
                     ),
@@ -92,17 +90,16 @@ class _TypeSelectorState extends State<TypeSelector> {
                 child: InkWell(
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>BookSelector(branch: widget.branch,sem: widget.sem,SubjectId: widget.subjectId,subjectName: widget.subjectName,)) );},
                   child: Container(
-                    height: 70.0,
+                    height: 50.0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 20.0,),
                         Text(
                           'Books',
-                          style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),
-                        ),
+                          style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),                        ),
                         Spacer(flex: 5,)
-                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
                         SizedBox(width: 20.0,),
                       ],
                     ),
@@ -119,17 +116,16 @@ class _TypeSelectorState extends State<TypeSelector> {
                 child: InkWell(
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PastPaperSelector(branch: widget.branch,sem: widget.sem,SubjectId: widget.subjectId,subjectName: widget.subjectName,)) );},
                   child: Container(
-                    height: 70.0,
+                    height: 50.0,
                     child: Row(
 //                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 20.0,),
                         Text(
                           'Past Papers',
-                          style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),
-                        ),
+                          style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),                        ),
                         Spacer(flex: 5,)
-                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
                         SizedBox(width: 20.0,),
                       ],
                     ),

@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:mynitfinal/models/slides.dart';
-import 'package:mynitfinal/screens/pdfViewScreen.dart';
 import 'package:mynitfinal/utils/api_client.dart';
 import 'dart:io';
+import 'package:open_file/open_file.dart';
 
 
 import 'add_contibute_screen.dart';
@@ -34,6 +34,14 @@ class _SlideSelectorState extends State<SlideSelector> {
         ),
       ),
       body: ModalProgressHUD(
+        progressIndicator: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Downloading..."),
+            SizedBox(height: 10,),
+            CircularProgressIndicator(),
+          ],
+        ),
         inAsyncCall: modalHud,
         child: Container(
           child: Column(
@@ -72,27 +80,21 @@ class _SlideSelectorState extends State<SlideSelector> {
                                     setState(() {
                                       modalHud = false;
                                     });
-                                    openFile(file.path);
-
-//                                  Navigator.push(
-//                                      context,
-//                                      MaterialPageRoute<dynamic>(
-//                                          builder: (_) =>pdfPage(file: file,)));
+                                      OpenFile.open(file.path);
                                   },
                                   child: Container(
-                                    height: 70.0,
+                                    height: 50.0,
                                     child: Row(
 //                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         SizedBox(width: 20.0,),
                                         Text(
                                           snapshot.data[i].name,
-                                          style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),
-                                        ),
+                                          style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),                                        ),
 
 
                                         Spacer(flex: 5,)
-                                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                                        ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
                                         SizedBox(width: 20.0,),
                                       ],
                                     ),
@@ -114,7 +116,7 @@ class _SlideSelectorState extends State<SlideSelector> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: modalHud?null:FloatingActionButton(
         onPressed: (){
           Navigator.push(
             context,
@@ -130,11 +132,11 @@ class _SlideSelectorState extends State<SlideSelector> {
     );
 
   }
-  Future<void> openFile(String path) async {
-    try {
-      await platform.invokeMethod('openFile',{"path":path});
-    } on PlatformException catch (e) {
-      print("Unable to open file"+e.toString());
-    }
-  }
+//  Future<void> openFile(String path) async {
+//    try {
+//      await platform.invokeMethod('openFile',{"path":path});
+//    } on PlatformException catch (e) {
+//      print("Unable to open file"+e.toString());
+//    }
+//  }
 }
