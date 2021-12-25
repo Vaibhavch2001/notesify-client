@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "670914394007-dqv49p8s84pcc0agi15r58uprl57a3ie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vaibhavcodes.mynitfinal",
+            "certificate_hash": "d4d681b5b5f344e0f56aac5799161021e2948d42"
+          }
+        },
+        {
           "client_id": "670914394007-hooj8qukopb82e4fie23l5tkjsopbuol.apps.googleusercontent.com",
           "client_type": 3
         }
