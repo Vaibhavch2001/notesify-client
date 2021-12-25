@@ -58,8 +58,6 @@ class _SubjectSelectorState extends State<SubjectSelector> {
                                         snapshot.data[i].name,
                                         style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w400),
                                       ),
-
-
                                       Spacer(flex: 5,)
                                       ,Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 20.0),
 //                                      Spacer(flex: 1,),

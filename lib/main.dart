@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mynitfinal/screens/main_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:mynitfinal/screens/screen_loader.dart';
 import 'package:mynitfinal/utils/constants.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
         theme: ThemeData.dark(),
         title: 'Flutter',
-          home: MainView()
+          home: LoaderScreen()
         );}
         return Container();
         });

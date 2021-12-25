@@ -1,8 +1,13 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mynitfinal/models/slides.dart';
+import 'package:mynitfinal/screens/loginpage.dart';
+import 'package:mynitfinal/screens/old_books_selector.dart';
+import 'package:mynitfinal/screens/screen_loader.dart';
 import 'package:mynitfinal/screens/select_semester_1styr.dart';
 import 'package:mynitfinal/screens/select_semester_2_3_4_yr.dart';
+import 'package:mynitfinal/utils/api_client.dart';
 import 'package:mynitfinal/utils/constants.dart';
 import 'package:package_info/package_info.dart';
 import 'package:share/share.dart';
@@ -29,8 +34,24 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: showDrawer(),
-      appBar: AppBar(title: Text(('Notesify')),),
+        drawer: showDrawer(context),
+      appBar: AppBar(title: Text(('Notesify')),leading: Builder(
+        builder: (BuildContext context) {
+          return IconButton(
+            // icon: const Icon(Icons.access_alarm_rounded),
+            icon: Container(
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    Constant.USER.photoURL),
+              ),
+            ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          );
+        },
+      ),),
       body: SafeArea(
 
         child: CustomScrollView(
@@ -46,6 +67,23 @@ class _MainViewState extends State<MainView> {
                   Card(
                     //0xff2f2f2f
                     child: GestureDetector(
+                      onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>OldBooksSelector())),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0) ),
+                        child:Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                          Image.asset('images/books.png',scale: 6,),
+                            SizedBox(height: 15.0,),
+                            Text("Buy/ Sell Old Books",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 15.0),)
+                        ],
+
+                        ),),
+                    ),
+                  ),
+                  Card(
+                    //0xff2f2f2f
+                    child: GestureDetector(
                       onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectSem1(branch: "1YR",))),
                       child: Container(
                         padding: const EdgeInsets.all(12),
@@ -53,8 +91,8 @@ class _MainViewState extends State<MainView> {
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0) ),
                         child:Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
                           Image.asset('images/1.png',scale: 6,),
-                            SizedBox(height: 15.0,),
-                            Text("1st Year",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 15.0),)
+                          SizedBox(height: 15.0,),
+                          Text("1st Year",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 15.0),)
                         ],
 
                         ),),
@@ -187,17 +225,43 @@ class _MainViewState extends State<MainView> {
     );
   }
 }
-Widget showDrawer() {
+Widget showDrawer(BuildContext context) {
   return Drawer(
     child: ListView(
       children: <Widget>[
         Container(
-          height: 150.0,
-          child: Image.asset('images/mnit.png'),
-    ),
-      SizedBox(height: 10.0,),
-        Center(child: Text("Made with ❤ in MNIT")),
+          height: 100,
+        child: FittedBox(
+          fit: BoxFit.contain,
+
+          child:CircleAvatar(
+            backgroundImage: NetworkImage(
+                Constant.USER.photoURL),
+          ),
+        ),),
         SizedBox(height: 10.0,),
+        Center(child: Text(Constant.USER.displayName)),
+        SizedBox(height: 10.0,),
+        Divider(),
+        ListTile(
+          title: Text(
+            'Sign Out',
+            style: TextStyle(fontFamily: 'Gotham', fontSize: 15.0),
+          ),
+          leading: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(width: 5.0,),
+              Icon(Icons.logout,color: Colors.white,size: 25.0,),
+            ],
+          ),
+          onTap: () async{
+            await ApiClient.signOut(context: context);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoaderScreen()));
+//            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+//                LoginPage()), (Route<dynamic> route) => false);
+          },
+        ),
         Divider(),
         ListTile(
           title: Text(
@@ -269,7 +333,19 @@ Widget showDrawer() {
 }
 versionCheck(context) async {
     //Get Current installed version of app
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  await _firebaseMessaging.subscribeToTopic('general');
+  String s = await _firebaseMessaging.getToken();
+  print("token = "+ s);
+  print("Subscribed");
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
   final PackageInfo info = await PackageInfo.fromPlatform();
   double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
   print("Cuurent ver:"+currentVersion.toString());
@@ -336,10 +412,11 @@ _showVersionDialog(context) async {
 }
 
 _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
+  await launch(url);
+//  if (await canLaunch(url)) {
+//    await launch(url);
+//  } else {
+//    throw 'Could not launch $url';
+//  }
 }
 //1YR CSE ECE EEE MECH CHEM CIVIL META
