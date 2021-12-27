@@ -25,6 +25,7 @@ class ApiClient {
     final User _user = auth.currentUser;
     print("User: ${_user != null ? _user.displayName : "None"}");
     Constant.USER = _user;
+    Constant.COLLEGE_ID = _user != null ? getCollegeId(_user.email) : "";
     return _user==null ? "NULL":_user;
   }
   static Future<User> signInWithGoogle({BuildContext context}) async {
@@ -60,6 +61,7 @@ class ApiClient {
     }
   }
   Constant.USER = user;
+  Constant.COLLEGE_ID = user != null ? getCollegeId(user.email) : "";
   return user;
   }
   static Future<void> signOut({BuildContext context}) async {
@@ -338,5 +340,9 @@ class ApiClient {
         style: TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
       ),
     );
+  }
+  static String getCollegeId(String email)
+  {
+    return email.split("@")[0];
   }
 }

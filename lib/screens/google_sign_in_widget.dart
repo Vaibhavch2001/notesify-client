@@ -36,18 +36,29 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
           // TODO: Add a method call to the Google Sign-In authentication
           User user =
           await ApiClient.signInWithGoogle(context: context);
-
-          setState(() {
-            _isSigningIn = false;
-          });
-          print("The user is" + user.toString());
-          if (user != null) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) =>
-                    MainView(),
-              ),
+          String email = user.email;
+          List<String> temp = email.split("@");
+          if(temp[temp.length-1]=="mnit.ac.in")
+            {
+              setState(() {
+                _isSigningIn = false;
+              });
+              print("The user is" + user.toString());
+              if (user != null) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        MainView(),
+                  ),
+                );
+              }
+            }
+          else {
+            await ApiClient.signOut(context: context);
+            const snackBar = SnackBar(
+              content: Text('Please sign in using your mnit email'),
             );
+            Scaffold.of(context).showSnackBar(snackBar);
           }
           setState(() {
             _isSigningIn = false;
