@@ -10,7 +10,7 @@ class GoogleSignInButton extends StatefulWidget {
 
 class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
-
+  ApiClient _apiClient = ApiClient();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,6 +45,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
               });
               print("The user is" + user.toString());
               if (user != null) {
+//                await _apiClient.createUser();
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) =>

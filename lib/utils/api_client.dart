@@ -14,7 +14,7 @@ import 'package:mynitfinal/utils/constants.dart';
 
 class ApiClient {
 
-  //AUTHENTICATION
+  // AUTHENTICATION
 
   static Future<FirebaseApp> initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
@@ -78,7 +78,15 @@ class ApiClient {
 
   final String baseUrl = 'https://vaibhav-nodejs-notesify.herokuapp.com/';
 //  final String baseUrl = 'http://localhost:8080/';
-
+  Future<dynamic> createUser() async {
+    final http.Response response = await http.post(
+        baseUrl + 'user/create',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{ "name" : Constant.USER.name, "email" : Constant.USER.name, "phone" : Constant.USER.name, "id" : Constant.COLLEGE_ID }),
+    );
+  }
   Future<dynamic> getAllListings() async {
     final http.Response response = await http.get(
       baseUrl + 'old-books/all',
